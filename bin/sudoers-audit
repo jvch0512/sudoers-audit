@@ -1,0 +1,4 @@
+#!/bin/sh
+# Launcher: runs the Clojure program.
+dir=$(cd "$(dirname "$0")/.." && pwd)
+exec clojure -cp "$dir/src" -m sudoers.main "$@"

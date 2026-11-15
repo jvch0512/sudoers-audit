@@ -1,0 +1,10 @@
+# Server sudoers. Synthetic example.
+Defaults        env_reset
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+Defaults        use_pty
+
+root    ALL=(ALL:ALL) ALL
+%admin  ALL=(ALL) ALL
+
+Cmnd_Alias SERVICES = /usr/bin/systemctl restart nginx, /usr/bin/systemctl status nginx
+deploy  ALL=(root) NOPASSWD: SERVICES

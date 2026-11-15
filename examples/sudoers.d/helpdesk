@@ -1,0 +1,14 @@
+# Added by a previous admin. Synthetic example.
+Defaults        !authenticate
+Defaults        env_keep += "LD_PRELOAD PATH"
+
+User_Alias HELPDESK = alice, bob
+Cmnd_Alias EDITORS = /usr/bin/vim, /usr/bin/less /var/log/*
+
+HELPDESK  ALL=(ALL) NOPASSWD: EDITORS, /usr/bin/find
+ALL       ALL=(root) /usr/bin/id
+ops       ALL=(ALL) NOPASSWD: ALL
+ci        ALL=(root) SETENV: /usr/local/bin/deploy.sh, service apache2 restart
+backup    ALL=(root) NOEXEC: /usr/bin/vim /etc/hosts, /bin/tar \
+                       czf /backup/x.tgz /etc
+this is not a rule

@@ -1,0 +1,12 @@
+# 2 files, 11 findings
+high	SUD006	sudoers.d/helpdesk:2	Defaults !authenticate: sudo never asks for a password
+high	SUD005	sudoers.d/helpdesk:3	env_keep passes LD_PRELOAD, PATH to privileged commands
+high	SUD004	sudoers.d/helpdesk:8	vim can spawn a shell or write arbitrary files (no password)
+high	SUD004	sudoers.d/helpdesk:8	less can spawn a shell or write arbitrary files (no password)
+high	SUD004	sudoers.d/helpdesk:8	find can spawn a shell or write arbitrary files (no password)
+high	SUD002	sudoers.d/helpdesk:9	rule applies to ALL users: everyone on the host gets this grant
+high	SUD001	sudoers.d/helpdesk:10	NOPASSWD with ALL commands: passwordless root for this principal
+medium	SUD003	sudoers.d/helpdesk:8	wildcard in command: /usr/bin/less /var/log/*
+medium	SUD007	sudoers.d/helpdesk:11	command without an absolute path: service apache2 restart
+medium	SUD008	sudoers.d/helpdesk:11	SETENV tag: the caller chooses the environment of the command
+info	SUD000	sudoers.d/helpdesk:14	could not parse: this is not a rule
