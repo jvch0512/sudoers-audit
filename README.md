@@ -2,6 +2,8 @@
 
 sudoers-audit reads `/etc/sudoers` and `sudoers.d` files, joins continued lines, resolves `Cmnd_Alias` and `User_Alias` names and checks every rule: who can run what as which user, with or without a password. It looks for the grants that give away root in practice: `NOPASSWD: ALL`, commands that can spawn a shell (editors, pagers, interpreters, `find`, `tar`), wildcards in arguments, `LD_PRELOAD` kept through `env_keep`, and `!authenticate`.
 
+![Terminal demo of sudoers-audit on its sample data](docs/demo.svg)
+
 **Live demo:** https://jvch0512.github.io/sudoers-audit/ (Synthetic sudoers files.)
 
 Clojure (JVM), standard library only. The demo page is rendered from the tool's `--tsv` output by `scripts/site.py` (Python 3, only needed to regenerate the page).
@@ -48,3 +50,13 @@ make test    # 70 checks, incl. 3000-case fuzzing and CLI exit codes
 ```
 
 MIT.
+
+## Code scanning (SARIF)
+
+`scripts/tsv2sarif.py` converts the `--tsv` output into SARIF 2.1.0, so findings show up in GitHub code scanning:
+
+```sh
+bin/sudoers-audit examples --tsv 2>/dev/null | python3 scripts/tsv2sarif.py --tool sudoers-audit --prefix examples > results.sarif
+```
+
+Upload `results.sarif` with `github/codeql-action/upload-sarif`. Severities map to SARIF levels (critical and high to error, medium to warning, low and info to note) and to a `security-severity` score.
